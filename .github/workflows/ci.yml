@@ -24,7 +24,7 @@ jobs:
       - name: Deploy WAR to Tomcat
         env:
           TOMCAT_HOST: localhost
-          TOMCAT_USERNAME: admin
+          TOMCAT_USERNAME: adminNT Authority\LocalService
           TOMCAT_PASSWORD: admin123
         run: |
           curl -T target/*.war \
