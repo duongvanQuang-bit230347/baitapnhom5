@@ -1,20 +1,31 @@
-name: Run CI for baitapnhom5
+name: CI/CD → Tomcat Deploy
 
 on:
   push:
-    branches: 
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [ main, 'feature-*' ]
 
 jobs:
-  check:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Lấy mã nguồn
+      - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Hiển thị danh sách file
-        run: ls -la
+      - name: Set up Java 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+
+      - name: Build WAR with Maven
+        run: mvn clean package
+
+      - name: Deploy WAR to Tomcat
+        env:
+          TOMCAT_HOST: localhost
+          TOMCAT_USERNAME: admin
+          TOMCAT_PASSWORD: admin123
+        run: |
+          curl -T target/*.war \
+            "http://$TOMCAT_USERNAME:$TOMCAT_PASSWORD@$TOMCAT_HOST:8080/manager/text/deploy?path=/baitapnhom5&update=true"
