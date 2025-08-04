@@ -31,4 +31,4 @@ jobs:
 
       - name: Deploy to Tomcat
         run: |
-          curl -u admin:admin -T target/*.war "http://YOUR_TOMCAT_IP:8080/manager/text/deploy?path=/classmanagement&update=true"
+          curl -u admin:admin -T target/*.war "http://103.97.124.52:8080/manager/text/deploy?path=/classmanagement&update=true"
