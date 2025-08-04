@@ -1,28 +1,24 @@
-name: CI/CD to Local Tomcat
+name: Maven Build
 
 on:
   push:
-    branches:
-      - trong-dev
+    branches: [ trong-dev ]
+  pull_request:
+    branches: [ trong-dev ]
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout source code
       uses: actions/checkout@v3
 
-    - name: Set up Java
+    - name: Set up JDK 24
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'adopt'
+        distribution: 'temurin'
 
-    - name: Build WAR
+    - name: Build with Maven
       run: mvn clean package
-
-    - name: Deploy WAR to Tomcat
-      run: |
-        echo "Deploying WAR to Tomcat..."
-        curl --upload-file target/yourapp.war "http://admin:admin123@localhost:8080/manager/text/deploy?path=/yourapp&update=true"
