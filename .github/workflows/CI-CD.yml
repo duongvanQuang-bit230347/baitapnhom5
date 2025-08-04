@@ -1,0 +1,30 @@
+name: Build and Deploy WAR to Tomcat
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build WAR file
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Build WAR file with Maven
+        run: mvn clean install
+
+      - name: Deploy to Remote Tomcat
+        run: |
+          curl -u admin:admin \
+            -T target/*.war \
+            "http://103.97.124.52:8080/manager/text/deploy?path=/classmanagement&update=true"
