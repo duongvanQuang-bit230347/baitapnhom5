@@ -29,6 +29,12 @@ jobs:
           name: app-war
           path: target/*.war
 
-      - name: Deploy to Tomcat
+      - name: Deploy to Remote Tomcat
+        env:
+          TOMCAT_HOST: 103.97.124.52
+          TOMCAT_USER: admin
+          TOMCAT_PASS: admin
         run: |
-          curl -u admin:admin -T target/*.war "http://103.97.124.52:8080/manager/text/deploy?path=/classmanagement&update=true"
+          curl -v -u $TOMCAT_USER:$TOMCAT_PASS \
+            -T target/*.war \
+            "http://$TOMCAT_HOST:8080/manager/text/deploy?path=/classmanagement&update=true"
