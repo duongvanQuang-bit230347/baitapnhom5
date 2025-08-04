@@ -1,24 +1,23 @@
-name: Maven Build
+name: Test
 
 on:
   push:
-    branches: [ trong-dev ]
-  pull_request:
-    branches: [ trong-dev ]
+    branches:
+      - trong-dev
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
 
     steps:
-    - name: Checkout source code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up JDK 24
+    - name: Set up Java
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'adopt'
 
-    - name: Build with Maven
+    - name: Build WAR
       run: mvn clean package
