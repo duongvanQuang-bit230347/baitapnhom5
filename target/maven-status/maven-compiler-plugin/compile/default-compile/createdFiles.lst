@@ -1,12 +1,17 @@
 edu\classroommanagement\RoomServlet.class
+controller\ClassroomServlet.class
 edu\classroommanagement\RoomManager.class
 edu\classroommanagement\ScheduleManager.class
 edu\classroommanagement\Room.class
 edu\classroommanagement\Schedule.class
+com\example\servlet\LoginServlet.class
 edu\classroommanagement\UserServlet.class
+com\example\servlet\HomeServlet.class
 edu\classroommanagement\BookingManager.class
+dao\ClassroomDAO.class
 edu\classroommanagement\Booking.class
 edu\classroommanagement\Device.class
+model\Classroom.class
 edu\classroommanagement\DeviceManager.class
 edu\classroommanagement\AuthServlet.class
 edu\classroommanagement\DatabaseConnection.class
