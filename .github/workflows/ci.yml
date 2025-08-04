@@ -3,8 +3,7 @@ name: CI/CD to Local Tomcat
 on:
   push:
     branches:
-      - main
-      - feature-*
+      - trong-dev
 
 jobs:
   build-and-deploy:
