@@ -1,0 +1,20 @@
+name: Run CI for baitapnhom5
+
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v3
+
+      - name: Hiển thị danh sách file
+        run: ls -la
