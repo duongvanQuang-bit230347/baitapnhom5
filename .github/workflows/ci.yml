@@ -1,0 +1,29 @@
+name: CI/CD to Local Tomcat
+
+on:
+  push:
+    branches:
+      - main
+      - feature-*
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+
+    - name: Build WAR
+      run: mvn clean package
+
+    - name: Deploy WAR to Tomcat
+      run: |
+        echo "Deploying WAR to Tomcat..."
+        curl --upload-file target/yourapp.war "http://admin:admin123@localhost:8080/manager/text/deploy?path=/yourapp&update=true"
