@@ -2,7 +2,7 @@ name: CI/CD → Tomcat Deploy
 
 on:
   push:
-    branches: [ main, 'feature-*' ]
+    branches: [nhanvien1]
 
 jobs:
   build-and-deploy:
