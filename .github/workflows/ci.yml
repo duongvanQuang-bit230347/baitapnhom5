@@ -1,15 +1,17 @@
-name: CI/CD → Tomcat Deploy
+name: Run Unit Tests
 
 on:
   push:
     branches: [nhanvien1]
+  pull_request:
+    branches: [nhanvien1]
 
 jobs:
-  build-and-deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout source code
         uses: actions/checkout@v3
 
       - name: Set up Java 8
@@ -18,16 +20,5 @@ jobs:
           distribution: 'temurin'
           java-version: '8'
 
-      - name: Build WAR with Maven
-        run: mvn clean package
-
-      - name: Deploy WAR to TomcatS
-        env:
-          TOMCAT_USERNAME: admin          # 🔁 thay bằng username thật
-          TOMCAT_PASSWORD: admin123       # 🔁 thay bằng mật khẩu thật
-          TOMCAT_HOST: yourhost.com       # 🔁 không dùng localhost
-          TOMCAT_PORT: 80                 # hoặc 443 nếu dùng HTTPS
-        run: |
-          curl -v -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD \
-            -T target/*.war \
-            "http://$TOMCAT_HOST:$TOMCAT_PORT/manager/text/deploy?path=/baitapnhom5&update=true"
+      - name: Build and run tests with Maven
+        run: mvn clean test
