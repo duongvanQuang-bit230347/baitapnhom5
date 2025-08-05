@@ -113,7 +113,7 @@ class DeviceManagerTest {
 
         SQLException thrown = assertThrows(SQLException.class, () -> deviceManager.addDevice(device),
             "Expected SQLException when no generated keys are returned");
-        assertEquals("hêm thiết bị thất bại, không lấy được ID.", thrown.getMessage());
+        assertEquals("Thêm thiết bị thất bại, không lấy được ID.", thrown.getMessage());
         verify(preparedStatement).executeUpdate();
         verify(preparedStatement).getGeneratedKeys();
         verify(generatedKeys).next();
